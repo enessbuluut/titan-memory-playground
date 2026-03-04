@@ -9,26 +9,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install build tools + python
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential make python3 python3-pip curl git
 
-      - name: Prepare PATH
-        run: |
-          mkdir -p "$HOME/.local/bin"
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
       - name: Install syft
         run: |
           curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b "$HOME/.local/bin"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
           syft version
 
-      - name: Install gitleaks
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | bash -s -- -b "$HOME/.local/bin"
-          gitleaks version
+      # Gitleaks kurulumla değil, action ile:
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup check
         run: |
@@ -38,8 +37,7 @@ jobs:
       - name: Build
         run: make build
 
-      - name: Secret scan
-        run: make secret-scan
+      # make secret-scan step'ini CI'dan kaldırdık çünkü action zaten tarıyor.
 
       - name: SBOM
         run: make sbom
