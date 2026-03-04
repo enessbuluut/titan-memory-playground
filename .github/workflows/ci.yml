@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  minimum:
+    runs_on: ubuntu_latest
+    
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Install gitleaks
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | bash -s -- -b /usr/local/bin
+
+      - name: Setup check
+        run: |
+          chmod +x scripts/setup.sh
+          ./scripts/setup.sh
+
+      - name: Build
+        run: make build
+
+      - name: Secret scan
+        run: make secret-scan
+
+      - name: SBOM
+        run: make sbom
