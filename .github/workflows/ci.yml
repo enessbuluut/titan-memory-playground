@@ -12,10 +12,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install build tools + python
+      - name: Install build tools + python +debug/binutils
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential make python3 python3-pip curl git
+          sudo apt-get install -y build-essential make python3 python3-pip curl git gdb binutils
 
       - name: Install syft
         run: |
@@ -34,10 +34,24 @@ jobs:
           chmod +x scripts/setup.sh
           ./scripts/setup.sh
 
-      - name: Build
-        run: make build
+      - name: Build memory_regions
+        run: make build-memory_regions
 
+      - name: Generate logs
+        run: make log-memory_regions
+
+      - name: Inspect sections
+        run: make inspect-memory-regions-sections > artifacts/logs/inspect_sections.log
+      
+      - name: Inspect segments
+        run: make inspect-memory-regions-segments > artifacts/logs/inspect_segments.log
       # make secret-scan step'ini CI'dan kaldırdık çünkü action zaten tarıyor.
 
       - name: SBOM
         run: make sbom
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: memory-regions-artifacts
+          path: artifacts/

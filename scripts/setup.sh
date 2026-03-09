@@ -33,15 +33,22 @@ optional() {
 }
 
 # Zorunlular (Ay 1 minimum)
-need gcc   "MinGW-w64 GCC kur (MSYS2 ya da MinGW-w64)."
-need git   "Git for Windows kur (Git Bash zaten bununla gelir)."
+need gcc        "MinGW-w64 GCC kur (MSYS2 ya da MinGW-w64)."
+need git        "Git for Windows kur (Git Bash zaten bununla gelir)."
+need gdb        "GDB kurulu olmalı"
+need readelf    "Binutils paketini kur"
+need objdump    "Binutils paketini kur"
+need nm         "Binutils paketini kur"
+
+optional pmap   "Linux ortamında gelir, windows tarafında zorunlu değil (bu nedenle optional)"
+
 if command -v python >/dev/null 2>&1; then
 	echo "python,bulundu."
 elif command -v python3 >/dev/null 2>&1; then
 	echo "python3, bulundu."
 else
 	echo "Bulunamadı: python"
-	echo "Hint: Python 3 kur ve 'python -- version' çalışsın."
+	echo "Hint: Python 3 kur ve 'python --version' çalışsın."
 	missing+=("python")
 fi
 
