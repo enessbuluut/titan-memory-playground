@@ -1,0 +1,11 @@
+PID              : 9648
+global_init      : 00007FF62E393000
+global_uninit    : 00007FF62E397030
+static_init      : 00007FF62E393004
+static_uninit    : 00007FF62E397034
+local_var        : 00000055EF7FF96C
+heap target      : 000001E2893738C0
+heap_ptr itself  : 00000055EF7FF960
+string literal   : 00007FF62E39402F
+msg pointer      : 00000055EF7FF958
+text_func        : 00007FF62E391490

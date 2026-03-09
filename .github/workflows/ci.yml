@@ -35,10 +35,10 @@ jobs:
           ./scripts/setup.sh
 
       - name: Build memory_regions
-        run: make build-memory_regions
+        run: make build-memory-regions
 
       - name: Generate logs
-        run: make log-memory_regions
+        run: make log-memory-regions
 
       - name: Inspect sections
         run: make inspect-memory-regions-sections > artifacts/logs/inspect_sections.log

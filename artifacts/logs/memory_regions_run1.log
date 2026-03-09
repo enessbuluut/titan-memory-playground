@@ -1,0 +1,11 @@
+PID              : 1584
+global_init      : 00007FF62E393000
+global_uninit    : 00007FF62E397030
+static_init      : 00007FF62E393004
+static_uninit    : 00007FF62E397034
+local_var        : 000000B47C1FFB1C
+heap target      : 000002537C7B38C0
+heap_ptr itself  : 000000B47C1FFB10
+string literal   : 00007FF62E39402F
+msg pointer      : 000000B47C1FFB08
+text_func        : 00007FF62E391490

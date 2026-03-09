@@ -34,19 +34,19 @@ build-memory-regions-ci: init
 	$(CC) $(CFLAGS) -DCI_MODE -o $(ARTIFACT_DIR)/memory_regions_ci lab/c/memory_regions.c
 
 run-memory-regions: build-memory-regions
-	./$(ARTIFACT_DIR)/memory_regions
+	./$(ARTIFACT_DIR)/memory-regions
 
 log-memory-regions: build-memory-regions-ci
 	./$(ARTIFACT_DIR)/memory_regions_ci > $(LOG_DIR)/memory_regions_run1.log
 	./$(ARTIFACT_DIR)/memory_regions_ci > $(LOG_DIR)/memory_regions_run2.log
 
 inspect-memory-regions-sections: build-memory-regions
-	readelf -S $(ARTIFACT_DIR)/memory_regions
-	nm -n $(ARTIFACT_DIR)/memory_regions
-	objdump -h $(ARTIFACT_DIR)/memory_regions
+	readelf -S $(ARTIFACT_DIR)/memory-regions
+	nm -n $(ARTIFACT_DIR)/memory-regions
+	objdump -h $(ARTIFACT_DIR)/memory-regions
 
 inspect-memory-regions-segments: build-memory-regions
-	readelf -l $(ARTIFACT_DIR)/memory_regions
+	readelf -l $(ARTIFACT_DIR)/memory-regions
 
 
 
